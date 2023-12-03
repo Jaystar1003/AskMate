@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AskMate Question {{ question['id'] }}</title>
+    <style>
+            table,td,th {
+                border: 1px solid black;
+                border-collapse: collapse;
+                background-color: antiquewhite;
+            }
+            body {background-color: beige}
+        a:link, a:visited {
+            text-decoration: none;
+            color: saddlebrown;
+        }
+    </style>
+</head>
+<body>
+
+<table style="width: 100%">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <a href="/">
+                <img src="https://i.ibb.co/hHxT8DM/ask-mate.png" alt="none">ASK MATE</a></th>
+        <th><a href="/list" style="font-size: large">Questions</a></th>
+        <th><a href="/add-question" style="font-size: large">Ask Something!</a></th>
+    </tr>
+    </thead>
+</table>
+
+<h1 style="font-style: oblique"><a href="/question/{{ question['id'] }}">Question {{ question['id'] }}:</a></h1>
+<hr>
+<h2 style="text-align: center">{{ question['title'] }}</h2>
+<p>{{ question['message'] }}</p>
+<br>
+<hr>
+<table style="margin-left: auto; margin-right: auto">
+    <caption>Number of votes: {{ question['vote_number'] }}</caption>
+    <thead>
+    <tr>
+        <th>Vote Up</th>
+        <th>Vote Down</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="text-align: center"><a href="/question/{{ question_id }}/vote-up">⬆</a></td>
+        <td style="text-align: center"><a href="/question/{{ question_id }}/vote-down">⬇</a></td>
+    </tr>
+    </tbody>
+</table>
+<input type="button" style="font-size: large; color: saddlebrown"
+           value="Edit this Question" onclick="location.href='/question/{{ question_id }}/edit'">
+<a style="float: right"><input type="button" style="font-size: large; color: saddlebrown"
+           value="Delete this Question" onclick="location.href='/question/{{ question_id }}/delete'"></a>
+<br>
+<hr>
+<p style="text-align: center">
+<input type="button" style="font-size: large; color: saddlebrown"
+           value="Add Answer" onclick="location.href='/question/{{ question_id }}/new-answer'">
+</p>
+                                            {% block answers %}
+<p style="font-size: x-large"><b>All Answers:</b></p>
+{% if answers is defined and answers|length > 0 %}
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th>Answer ID</th>
+            <th style="width: 50%">Answer</th>
+            <th>Add a comment</th>
+            <th>Number of votes</th>
+            <th>Vote</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for answer in answers | sort(attribute='vote_number') %}
+        <tr>
+            <td style="text-align: center"> {{ answer['id'] }}</td>
+            <td><a href="/question/{{ question_id }}/answer/{{ answer_id }}">{{ answer['message'] }}</a></td>
+            <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/new-comment">💬</a></td>
+            <td style="text-align: center">{{ answer['vote_number'] }}</td>
+            <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/vote-up">⬆</a>
+                       <a>|</a> <a href="/answer/{{ answer['id'] }}/vote-down">⬇</a></td>
+            <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/edit">♻</a></td>
+            <td style="text-align: center">
+                <a href="/answer/{{ answer['id'] }}/delete">🗑</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if answers is not defined or answers|length <= 0 %}
+<p style="color: brown; font-size: large">No answers yet!</p>
+{% endif %}
+<br>
+                                            {% endblock %}
+<hr>
+<p style="text-align: center">
+<input type="button" style="font-size: large; color: saddlebrown"
+           value="Comment on this Question" onclick="location.href='/question/{{ question['id'] }}/new-comment'">
+</p>
+
+<p style="font-size: x-large"><b>All Comments:</b></p>
+{% if comments|length > 0 and comments is defined %}
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Comment</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+        <tr>
+            <td style="text-align: center">{{ comment['id'] }}</td>
+            <td>{{ comment['message'] }}</td>
+            <td style="text-align: center"><a href="/comments/{{ comment['id'] }}/edit">♻</a></td>
+            <td style="text-align: center"><a href="/comments/{{ comment['id'] }}/delete">🗑</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if comments|length <= 0 or comments is not defined %}
+<p style="color: brown; font-size: large">No comments yet!</p>
+{% endif %}
+</body>
+</html>

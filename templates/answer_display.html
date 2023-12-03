@@ -1,0 +1,56 @@
+{% extends 'question_display.html' %}
+<link rel="stylesheet" href="/chat_bubbles.css">
+
+                                            {% block answers %}
+
+<p style="font-size: x-large"><b>Answer {{ answer_id }}:</b></p>
+<table style="width: 100%">
+        <thead>
+        <tr>
+            <th>Answer ID</th>
+            <th style="width: 50%">Answer</th>
+            <th>Add a comment</th>
+            <th>Number of votes</th>
+            <th>Vote</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center"> {{ answer['id'] }}</td>
+                <td>{{ answer['message'] }}</td>
+                <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/new-comment">💬</a></td>
+                <td style="text-align: center">{{ answer['vote_number'] }}</td>
+                <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/vote-up">⬆</a>
+                           <a>|</a> <a href="/answer/{{ answer['id'] }}/vote-down">⬇</a></td>
+                <td style="text-align: center"><a href="/answer/{{ answer['id'] }}/edit">♻</a></td>
+                <td style="text-align: center">
+                    <a href="/answer/{{ answer['id'] }}/delete">🗑</a></td>
+            </tr>
+        </tbody>
+    </table>
+<br><br>
+    <p style="font-size: large; text-align: center"><b>Comments to this answer:</b></p>
+
+    <table style="width: 50%; margin: auto">
+    <thead>
+    <tr>
+        <th>Comment</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for comment in answer_comments %}
+    <tr>
+        <td>{{ comment['message'] }}</td>
+        <td style="text-align: center"><a href="/comment/{{ comment['id'] }}/edit">♻</a></td>
+        <td style="text-align: center"><a href="/comments/{{ comment['id'] }}/delete">🗑</a></td>
+    </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+                                            {% endblock %}
+

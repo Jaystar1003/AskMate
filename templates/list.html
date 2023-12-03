@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AskMate</title>
+    <style>
+        table, td, th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            background-color: antiquewhite;
+        }
+        body {background-color: beige}
+        a:link, a:visited {
+            text-decoration: none;
+            color: saddlebrown;
+        }
+    </style>
+</head>
+<body>
+
+<table style="width: 100%">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <a href="/"><img src="https://i.ibb.co/hHxT8DM/ask-mate.png" alt="none">ASK MATE</a></th>
+        <th><a href="/list" style="font-size: large">Questions</a></th>
+        <th><a href="/add-question" style="font-size: large">Ask Something!</a></th>
+    </tr>
+    </thead>
+</table>
+
+<h1 style="font-style: oblique">All Questions</h1>
+<br>
+<form action="{{ url_for("question_list") }}" method="POST" >
+        <label>
+            <select name="sort_value">
+                <option value="id" HIDDEN>-------direction-------</option>
+                <option value="id">id</option>
+                <option value="title">title</option>
+                <option value="submission_time">submission time</option>
+                <option value="message">message</option>
+                <option value="view_number">number of views</option>
+                <option value="vote_number">number of votes</option>
+            </select>
+        </label>
+
+        <label>
+            <select name="sort_direction">
+                <option value="DESC" HIDDEN>----value----</option>
+                <option value="DESC">descending</option>
+                <option value="ASC">ascending</option>
+            </select>
+        </label>
+        <button class="Search" type="submit" value="submit" style="color: saddlebrown">Sort</button>
+    </form>
+<br>
+<table style="width: 100%">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Submission Time</th>
+        <th>View Number</th>
+        <th>Vote Number</th>
+        <th>Vote</th>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Image</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+            <tr>
+                <td style="text-align: center">{{ question['id'] }}</td>
+                <td style="text-align: center">{{ question['submission_time'] }}</td>
+                <td style="text-align: center">{{ question['view_number'] }}</td>
+                <td style="text-align: center">{{ question['vote_number'] }}</td>
+                <td style="text-align: center"><a href="/question/{{ question['id'] }}/vote-up">⬆</a>
+                    <a href="/question/{{ question['id'] }}/vote-down">⬇</a></td>
+                <td><a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+                <td>{{ question['message'] }}</td>
+                <td><img src="{{ question['image'] }}" alt="no image"></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<p style="text-align: center">
+<input type="button" style="font-size: large; color: saddlebrown"
+           value="Ask Something!" onclick="location.href='/add-question'">
+</p>
+</body>
+</html>

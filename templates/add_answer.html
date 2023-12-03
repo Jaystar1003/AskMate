@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Answer</title>
+    <style>
+        table,td,th {
+                border: 1px solid black;
+                border-collapse: collapse;
+                background-color: antiquewhite;
+            }
+        body {background-color: beige}
+        a:link, a:visited {
+            text-decoration: none;
+            color: saddlebrown;
+        }
+    </style>
+</head>
+<body>
+
+<table style="width: 100%">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <a href="/"><img src="https://i.ibb.co/hHxT8DM/ask-mate.png" alt="none">ASK MATE</a></th>
+        <th><a href="/list" style="font-size: large">Questions</a></th>
+        <th><a href="/add-question" style="font-size: large">Ask Something!</a></th>
+    </tr>
+    </thead>
+</table>
+
+<h1 style="font-style: oblique">Answer</h1>
+<form method="post" style="text-align: center">
+    <label for="answer">
+        <p style="font-size: large;font-style: oblique">Write your answer here:</p>
+        <textarea name="message" required style="min-width: 500px; min-height: 150px; background-color: antiquewhite;"></textarea>
+    </label>
+    <br>
+    <br>
+    <label for="image">
+        <input type="file" accept=".jpg,.png"/>
+    </label>
+    <br><br><br>
+    <button type="submit" style="font-size: large; color: saddlebrown">Add Answer</button>
+</form>
+</body>
+</html>
