@@ -9,9 +9,6 @@ This web application is a forum where users can register, log in, ask questions,
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Installation
 
