@@ -24,11 +24,13 @@ To set up the Flask Forum on your local machine, follow these steps:
     pip install -r requirements.txt
 
 3. Set up the database:
+    ```bash
     flask db init
     flask db migrate
     flask db upgrade
 
-4. Run the application:
+5. Run the application:
+    ```bash
     flask run
 
 The Flask Forum will be accessible at http://localhost:5000 by default.
